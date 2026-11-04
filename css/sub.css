@@ -1,0 +1,6 @@
+@charset "utf-8";
+
+header{
+  background:var(--bg_color01);
+  height:200px;
+}
