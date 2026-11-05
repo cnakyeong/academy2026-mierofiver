@@ -1,5 +1,7 @@
 
 # 프론트엔드 교육과정 - 미에로 화이바 클론 코딩
+| **PC 버전** | [https://cnakyeong.github.io/academy2026-mierofiver/index.html] |
+| **Mobile 버전** | [https://cnakyeong.github.io/academy2026-mierofiver/mobile/index.html] |
 * PC 버전     [https://cnakyeong.github.io/academy2026-mierofiver/index.html]
 * Mobile 버전 [https://cnakyeong.github.io/academy2026-mierofiver/mobile/index.html]
 
