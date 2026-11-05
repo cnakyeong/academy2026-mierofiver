@@ -3,8 +3,8 @@
 
 | 구분 | 링크 주소 |
 | :--- | :--- |
-| **PC 버전** | [https://cnakyeong.github.io/academy2026-mierofiver/index.html] |  
-| **Mobile 버전** | [https://cnakyeong.github.io/academy2026-mierofiver/mobile/index.html] |  
+| **PC 버전** | https://cnakyeong.github.io/academy2026-mierofiver/index.html |  
+| **Mobile 버전** | https://cnakyeong.github.io/academy2026-mierofiver/mobile/index.html |  
 
 <br>
 <br>
