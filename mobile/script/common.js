@@ -1,72 +1,69 @@
 
-// 공통 자바스크립트 common.js
-//1. 변수
-let gnb = document.querySelectorAll('.gnb > ul > li');
-let sub = document.querySelectorAll('.gnb .sub');
-let m_area = document.querySelector('main');
-let f_area = document.querySelector('footer');
-const t_btn = document.querySelector('.top_btn');
+// 상단 헤더 토글버튼 기능
 
-//헤더 관련
-//메인메뉴 li태그를 각각 클릭시 해당 서브만 보이게 한다.
-for(let i=0;i<gnb.length;i++){
-  //console.log(gnb.length);
-  console.log(i); //0~5까지  메뉴 개수  확인~~~
+// 1. 변수 선언
+  const toggleBtn = document.querySelector('.toggle'); // 토글 버튼 변수
+  const spans = document.querySelectorAll('.toggle span'); // 토글 라인
+  const gnb = document.querySelector('.gnb'); 
+  let mnu = document.querySelectorAll('.gnb > ul > li > a'); //메인 메뉴
+// 2. 클릭이벤트
+  toggleBtn.addEventListener('click', function() {
+    // 토글버튼 자체에 클래스를 토글
+    this.classList.toggle('active');
 
-  gnb[i].addEventListener('click', ()=>{
-    //해당 메뉴의 서브메뉴 변수
-    const child = gnb[i].children; //메인메뉴(.gnb)의 자손 ul
-    console.log(child[1]);
+    if (this.classList.contains('active')) { //만약 act클래스가 존재하지 않는다면 
+      // act클래스를 적용하고
+      spans[0].classList.add('act_rotate01');
+      spans[1].classList.add('act_none');
+      spans[2].classList.add('act_rotate02');
+      gnb.style.opacity='1';
+      
 
-    //li태그안에 있는 .sub모두 숨기기
-    for(let j=0;j<sub.length;j++){
-      sub[j].style.display='none';
+    } else { // 그렇지 않다면
+      // act클래스를 뺸다.
+      spans[0].classList.remove('act_rotate01');
+      spans[1].classList.remove('act_none');
+      spans[2].classList.remove('act_rotate02');
+      gnb.style.opacity='0';
     }
-
-    //사용자가 선택한 li태그안의 .sub만 나오게 함.
-    child[1].style.display='block';
-
-    //제이쿼리로 하면
-    //$(this).find('.sub').show();
   });
-};
 
-//메인영역 클릭시 서브메뉴 숨기기
-m_area.addEventListener('click', ()=>{
-  //li태그안에 있는 .sub모두 숨기기
-  for(let i=0;i<sub.length;i++){
-    sub[i].style.display='none';
-  }
-});
+// 3. 메인메뉴 클릭시 해당 서브메뉴만 나오게 하기
 
-//푸터영역 클릭시 서브메뉴 숨기기
-f_area.addEventListener('click', ()=>{
-  //li태그안에 있는 .sub모두 숨기기
-  for(let i=0;i<sub.length;i++){
-    sub[i].style.display='none';
-  }
-});
+mnu.forEach(function(item) {
+  item.addEventListener('click', (event) => {
 
-//푸터관련
-//탑버튼 나오고 / 숨기기
-window.addEventListener('scroll', ()=>{
-  console.log(window.scrollY);
-  let ws = window.scrollY;
+    const sub = item.nextElementSibling;
 
-  if(ws>=1520){ //스크롤 좌표값이 1520이상일 경우
-    //탑버튼 나오게한다.
-    t_btn.style.display='block';
+    if (sub && sub.classList.contains('sub')) {
+      event.preventDefault();
 
-  }else{//그렇지 않은 경우
-    //탑버튼 숨긴다.
-    t_btn.style.display='none';
-  }
-});
+      // 다른 서브메뉴 모두 닫기
+      mnu.forEach(function(otherItem) {
+        if (otherItem !== item) {
+          const otherSub = otherItem.nextElementSibling;
 
-//탑버튼 클릭시 상단으로 부드럽게 올라가게 하기
-t_btn.addEventListener('click', function(){
-  window.scrollTo({
-    top:0,
-    behavior:'smooth' //부드럽게 애니메이션 효과
+          if (otherSub && otherSub.classList.contains('sub')) {
+            otherSub.classList.remove('act');
+          }
+
+          const otherIcon = otherItem.querySelector('.fa-angle-down');
+
+          if (otherIcon) {
+            otherIcon.classList.remove('rotate');
+          }
+        }
+      });
+
+      // 현재 서브메뉴 열고 닫기
+      sub.classList.toggle('act');
+
+      // 현재 아이콘 회전
+      const icon = item.querySelector('.fa-angle-down');
+
+      if (icon) {
+        icon.classList.toggle('rotate');
+      }
+    }
   });
 });
