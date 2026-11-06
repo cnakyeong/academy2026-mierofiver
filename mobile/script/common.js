@@ -1,37 +1,72 @@
 
-// 상단 헤더 토글버튼 기능
+// 공통 자바스크립트 common.js
+//1. 변수
+let gnb = document.querySelectorAll('.gnb > ul > li');
+let sub = document.querySelectorAll('.gnb .sub');
+let m_area = document.querySelector('main');
+let f_area = document.querySelector('footer');
+const t_btn = document.querySelector('.top_btn');
 
-// 1. 변수 선언
-  const toggleBtn = document.querySelector('.toggle'); // 토글 버튼 변수
-  const spans = document.querySelectorAll('.toggle span'); // 토글 라인
-  const gnb = document.querySelector('.gnb');
-// 2. 클릭이벤트
-  toggleBtn.addEventListener('click', function() {
-    // 토글버튼 자체에 클래스를 토글
-    this.classList.toggle('active');
+//헤더 관련
+//메인메뉴 li태그를 각각 클릭시 해당 서브만 보이게 한다.
+for(let i=0;i<gnb.length;i++){
+  //console.log(gnb.length);
+  console.log(i); //0~5까지  메뉴 개수  확인~~~
 
-    if (this.classList.contains('active')) { //만약 act클래스가 존재하지 않는다면 
-      // act클래스를 적용하고
-      spans[0].classList.add('act_rotate01');
-      spans[1].classList.add('act_none');
-      spans[2].classList.add('act_rotate02');
-      gnb.style.opacity='1';
-      gnb.style.transform='translateY(0px)';
-      
+  gnb[i].addEventListener('click', ()=>{
+    //해당 메뉴의 서브메뉴 변수
+    const child = gnb[i].children; //메인메뉴(.gnb)의 자손 ul
+    console.log(child[1]);
 
-    } else { // 그렇지 않다면
-      // act클래스를 뺸다.
-      spans[0].classList.remove('act_rotate01');
-      spans[1].classList.remove('act_none');
-      spans[2].classList.remove('act_rotate02');
-      gnb.style.opacity='0';
-      gnb.style.transform='translateY(-20px)';
+    //li태그안에 있는 .sub모두 숨기기
+    for(let j=0;j<sub.length;j++){
+      sub[j].style.display='none';
     }
+
+    //사용자가 선택한 li태그안의 .sub만 나오게 함.
+    child[1].style.display='block';
+
+    //제이쿼리로 하면
+    //$(this).find('.sub').show();
   });
+};
 
-  // 메인메뉴 나오고 / 숨기기
-  // 토글 버튼 클릭시 조건문을 작성하여 0, 1값을 판단하여 0일경우 메인메뉴 나오구, 1일 경우 메인메뉴가 숨겨지도록 합니다
+//메인영역 클릭시 서브메뉴 숨기기
+m_area.addEventListener('click', ()=>{
+  //li태그안에 있는 .sub모두 숨기기
+  for(let i=0;i<sub.length;i++){
+    sub[i].style.display='none';
+  }
+});
 
-  // 메인메뉴 나올때 도클버튼 모양이 'x'
+//푸터영역 클릭시 서브메뉴 숨기기
+f_area.addEventListener('click', ()=>{
+  //li태그안에 있는 .sub모두 숨기기
+  for(let i=0;i<sub.length;i++){
+    sub[i].style.display='none';
+  }
+});
 
-  // 메인메뉴 숨겨질때 토글 버튼 모양이 다시 원래대로 변경됩니다.
+//푸터관련
+//탑버튼 나오고 / 숨기기
+window.addEventListener('scroll', ()=>{
+  console.log(window.scrollY);
+  let ws = window.scrollY;
+
+  if(ws>=1520){ //스크롤 좌표값이 1520이상일 경우
+    //탑버튼 나오게한다.
+    t_btn.style.display='block';
+
+  }else{//그렇지 않은 경우
+    //탑버튼 숨긴다.
+    t_btn.style.display='none';
+  }
+});
+
+//탑버튼 클릭시 상단으로 부드럽게 올라가게 하기
+t_btn.addEventListener('click', function(){
+  window.scrollTo({
+    top:0,
+    behavior:'smooth' //부드럽게 애니메이션 효과
+  });
+});
